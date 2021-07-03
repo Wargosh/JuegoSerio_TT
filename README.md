@@ -1,2 +1,2 @@
 # JuegoSerio_TT
- Proeycto de Trabajo de Titulación
+ Proyecto de Trabajo de Titulación
