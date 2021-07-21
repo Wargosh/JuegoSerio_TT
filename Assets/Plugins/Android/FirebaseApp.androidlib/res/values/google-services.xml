@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_android_client_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="gcm_defaultSenderId" translatable="false">149874904871</string>
+  <string name="google_storage_bucket" translatable="false">juegoseriott-b5e7b.appspot.com</string>
+  <string name="project_id" translatable="false">juegoseriott-b5e7b</string>
+  <string name="google_api_key" translatable="false">AIzaSyDgIs-QD3IBFTR2r8zanOKymPYwq8CYKM0</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyDgIs-QD3IBFTR2r8zanOKymPYwq8CYKM0</string>
+  <string name="google_app_id" translatable="false">1:149874904871:android:82906cd28b30689987e302</string>
+  <string name="default_android_client_id" translatable="false">149874904871-87g831ccrsq9nc6cuohsa2e1ckr9silh.apps.googleusercontent.com</string>
+  <string name="default_web_client_id" translatable="false">149874904871-23kujgig8ldb15f9ak2bb624b1jbjj72.apps.googleusercontent.com</string>
+</resources>

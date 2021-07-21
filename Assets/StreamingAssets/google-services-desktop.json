@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "149874904871",
+    "project_id": "juegoseriott-b5e7b",
+    "storage_bucket": "juegoseriott-b5e7b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:149874904871:android:82906cd28b30689987e302",
+        "android_client_info": {
+          "package_name": "com.ErickJara.JuegoSerioTT"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "149874904871-87g831ccrsq9nc6cuohsa2e1ckr9silh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.ErickJara.JuegoSerioTT",
+            "certificate_hash": "4e1773a08e7752e4a01d97f8d774f16a070184de"
+          }
+        },
+        {
+          "client_id": "149874904871-23kujgig8ldb15f9ak2bb624b1jbjj72.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDgIs-QD3IBFTR2r8zanOKymPYwq8CYKM0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "149874904871-23kujgig8ldb15f9ak2bb624b1jbjj72.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
