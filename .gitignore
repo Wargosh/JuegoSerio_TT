@@ -35,7 +35,13 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+*.meta
 
 # Packages whit a license
 Assets/EndlessBook
 Assets/EndlessBook.meta
+Assets/Editor Default Resources
+Assets/ExternalDependencyManager
+Assets/Firebase
+Assets/GoogleSignIn
+Assets/Plugins
