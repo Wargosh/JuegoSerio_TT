@@ -9,7 +9,6 @@ using Newtonsoft;
 
 public class MenuSingInController : MonoBehaviour
 {
-    string server = "https://servidor-tt.herokuapp.com/";
     float valueLoading = 0f;
 
     [Header("Configuracion Firebase")]
@@ -73,7 +72,7 @@ public class MenuSingInController : MonoBehaviour
     IEnumerator LoadSceneAsync () {
         yield return null;
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("test-storybook");
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("storybook");
         // No permitir que aparezca la escena mientras no haya cargado completamente
         asyncOperation.allowSceneActivation = false;
         AddStatusText("Cargando Juego");
@@ -91,7 +90,7 @@ public class MenuSingInController : MonoBehaviour
 
     IEnumerator OnSingIn_ToServer(WWWForm form)
     {
-        UnityWebRequest www = UnityWebRequest.Post(server + "login/game", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkController.Instance.server + "login/game", form);
         yield return www.SendWebRequest();
 
         if (!string.IsNullOrEmpty(www.error))
@@ -143,7 +142,7 @@ public class MenuSingInController : MonoBehaviour
 
     IEnumerator OnSingUP_ToServer(WWWForm form)
     {
-        UnityWebRequest www = UnityWebRequest.Post(server + "singup/game", form);
+        UnityWebRequest www = UnityWebRequest.Post(NetworkController.Instance.server + "singup/game", form);
         yield return www.SendWebRequest();
 
         if (!string.IsNullOrEmpty(www.error))

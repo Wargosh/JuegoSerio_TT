@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class NetworkController : MonoBehaviour
 {
+    public string server = "https://servidor-tt.herokuapp.com/";
     public Player _player; // mantiene la info del jugador actualizada
     public static NetworkController Instance { get; set; }
 

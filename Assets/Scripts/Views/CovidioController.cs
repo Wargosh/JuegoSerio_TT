@@ -9,15 +9,18 @@ public class CovidioController : MonoBehaviour
 
     void Awake()
     {
-        anim = GetComponent<Animator>();    
+        anim = GetComponent<Animator>();
+
+        SetStatusAnimation();
     }
-    void Start()
+    private void OnEnable()
     {
         SetStatusAnimation();
     }
 
     public void SetStatusAnimation ()
     {
+        ResetAnimations();
         switch (status)
         {
             case Status.Greet:

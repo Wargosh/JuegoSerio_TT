@@ -47,11 +47,6 @@ public class BookController : MonoBehaviour
     public TouchPad touchPad;
 
     public PageViewController[] pageViews;
-
-    public GameObject[] objPages;
-
-    private int currentPage;
-
     public static BookController Instance { get; set; }
     private void Awake () {
         Instance = this;
@@ -73,15 +68,14 @@ public class BookController : MonoBehaviour
         // turn on the audio now that the book state is set the first time,
         // otherwise we'd hear a noise and no change would occur
         audioOn = true;
-        currentPage = 0;
     }
 
     // Abrir o cerrar el libro
     public void open_close_book () {
         if (book.CurrentState == EndlessBook.StateEnum.ClosedFront)
-            book.SetState(EndlessBook.StateEnum.OpenFront, timeOpenCloseBook);
+            OpenFront();
         else
-            book.SetState(EndlessBook.StateEnum.ClosedFront, timeOpenCloseBook);
+            ClosedFront();
     }
 
     // Cambiar a siguiente pagina
@@ -90,19 +84,13 @@ public class BookController : MonoBehaviour
             if (book.CurrentRightPageNumber == book.LastPageNumber)
                 OpenBack();
             else
-            {
                 book.TurnForward(singlePageTurnTime, onCompleted: OnBookStateChanged, onPageTurnStart: OnPageTurnStart, onPageTurnEnd: OnPageTurnEnd);
-                OptimizePageViews(2, true);
-            }
 
         if (book.CurrentState == EndlessBook.StateEnum.OpenBack)
             ClosedBack();
 
         if (book.CurrentState == EndlessBook.StateEnum.OpenFront)
-        {
             OpenMiddle();
-            OptimizePageViews(2, false);
-        }
 
         if (book.CurrentState == EndlessBook.StateEnum.ClosedFront)
             OpenFront();
@@ -114,10 +102,7 @@ public class BookController : MonoBehaviour
             if (book.CurrentLeftPageNumber == 1)
                 OpenFront();
             else
-            {
                 book.TurnBackward(singlePageTurnTime, onCompleted: OnBookStateChanged, onPageTurnStart: OnPageTurnStart, onPageTurnEnd: OnPageTurnEnd);
-                OptimizePageViews(-2, true);
-            }
 
         if (book.CurrentState == EndlessBook.StateEnum.OpenBack)
             OpenMiddle();
@@ -128,37 +113,23 @@ public class BookController : MonoBehaviour
         if (book.CurrentState == EndlessBook.StateEnum.ClosedBack)
             OpenBack();
     }
-
-    private void OptimizePageViews (int num, bool increment)
-    {
-        HideAllPageViews();
-        num = num % 2 == 0 ? num : num+1; // si la pagina es impar incrementar en uno
-        if (increment)
-            currentPage += num;
-        else
-            currentPage = num;
-        Debug.Log(currentPage);
-        Debug.Log(currentPage + "+2 <= " + book.LastPageNumber);
-        // habilitar paginas 
-        for (int i = currentPage - 3; i <= currentPage; i++)
-        {
-            if (i >= 0 && i <= book.LastPageNumber)
-                objPages[i].SetActive(true);
-        }
+    
+    private void PlayAnim_ZoomIn() {
+        UIButtonsOfBook.Instance.anim.SetBool("openBook", true);
     }
 
-    private void HideAllPageViews ()
+    private void PlayAnim_ZoomOut()
     {
-        for (int i = 0; i < objPages.Length; i++)
-            objPages[i].SetActive(false);
+        UIButtonsOfBook.Instance.anim.SetBool("openBook", false);
+    }
+
+    private void PlayAnim_BookSelected(bool isSelected)
+    {
+        UIButtonsOfBook.Instance.anim.SetBool("bookSelected", isSelected);
     }
 
 
 
-
-    
-
-    
 
     /// <summary>
     /// Called when the book's state changes
@@ -210,10 +181,8 @@ public class BookController : MonoBehaviour
     {
         // Solo se habilita la anterior página si el libro no esta cerrado por delante
         touchPad.Toggle(TouchPad.PageEnum.Left, on && book.CurrentState != EndlessBook.StateEnum.ClosedFront);
-
         // Solo se habilita la siguiente página si el libro no esta cerrado por detrás
         touchPad.Toggle(TouchPad.PageEnum.Right, on && book.CurrentState != EndlessBook.StateEnum.ClosedBack);
-
         // Solo permitir usar la tabla de contenidos si consta de más de una página
         touchPad.ToggleTableOfContents(on && book.CurrentLeftPageNumber > 1);
     }
@@ -271,7 +240,7 @@ public class BookController : MonoBehaviour
         // turn off the touch pad
         ToggleTouchPad(false);
 
-        // turn on the front and back page views of the page if necessary
+        // Controla la páginas actuales en la que se encuentra (para ahorrar recursos)
         TogglePageView(pageNumberFront, true);
         TogglePageView(pageNumberBack, true);
 
@@ -462,12 +431,9 @@ public class BookController : MonoBehaviour
         switch (actionType)
         {
             case BookActionTypeEnum.ChangeState:
-                // set the book state
                 SetState((EndlessBook.StateEnum)System.Convert.ToInt16(actionValue));
                 break;
-
             case BookActionTypeEnum.TurnPage:
-                // table of contents actions
                 if (actionValue == 999)
                     OpenBack();
                 else
@@ -489,11 +455,13 @@ public class BookController : MonoBehaviour
 
     protected virtual void ClosedFront()
     {
+        PlayAnim_ZoomOut();
         SetState(EndlessBook.StateEnum.ClosedFront);
     }
 
     protected virtual void OpenFront()
     {
+        PlayAnim_ZoomIn();
         TogglePageView(0, true);
 
         SetState(EndlessBook.StateEnum.OpenFront);
@@ -510,6 +478,7 @@ public class BookController : MonoBehaviour
 
     protected virtual void OpenBack()
     {
+        PlayAnim_ZoomIn();
         TogglePageView(999, true);
 
         SetState(EndlessBook.StateEnum.OpenBack);
@@ -517,6 +486,7 @@ public class BookController : MonoBehaviour
 
     protected virtual void ClosedBack()
     {
+        PlayAnim_ZoomOut();
         SetState(EndlessBook.StateEnum.ClosedBack);
     }
 
@@ -543,6 +513,5 @@ public class BookController : MonoBehaviour
                         onCompleted: OnBookStateChanged,
                         onPageTurnStart: OnPageTurnStart,
                         onPageTurnEnd: OnPageTurnEnd);
-        OptimizePageViews(pageNumber, false);
     }
 }

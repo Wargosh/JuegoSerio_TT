@@ -1619,7 +1619,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 1886555524589957761, guid: 0ae8b38fe56861e41bb3d0e8d71ebafb,
+  m_Sprite: {fileID: 8350222075712169186, guid: edb73a340ec1d534aaf053fa0c393e0e,
     type: 3}
   m_Type: 0
   m_PreserveAspect: 0
@@ -2356,6 +2356,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 545c052d9af772b499e8b0a4a11299a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  server: https://servidor-tt.herokuapp.com/
   _player:
     _id: 
     username: 
