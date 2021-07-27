@@ -20,11 +20,6 @@ public class PageView : PageViewController
 
     public ChapterJump[] chapterJumps;
 
-    private void Start()
-    {
-        
-    }
-
     protected override bool HandleHit(RaycastHit hit, BookActionDelegate action)
     {
         if (action == null) return false;

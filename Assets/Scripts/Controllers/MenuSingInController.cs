@@ -5,7 +5,6 @@ using Google;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
-using Newtonsoft;
 
 public class MenuSingInController : MonoBehaviour
 {
@@ -30,17 +29,14 @@ public class MenuSingInController : MonoBehaviour
         };
     }
 
-    /*void Start () {
+    void Start () {
         UIMenuLogin.Instance.ShowPanelLoading();
-        StartCoroutine("TimeSliderLoadBar");
-    }*/
+        StartCoroutine(TimeSliderLoadBar());
+    }
 
     private void LoadScene () {
         UIMenuLogin.Instance.ShowPanelLoading();
         StartCoroutine(LoadSceneAsync());
-
-        //AddStatusText("Cargando Juego");
-        //SceneManager.LoadScene("test-storybook");
     }
 
     IEnumerator TimeSliderLoadBar () {
@@ -72,7 +68,7 @@ public class MenuSingInController : MonoBehaviour
     IEnumerator LoadSceneAsync () {
         yield return null;
 
-        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("storybook");
+        AsyncOperation asyncOperation = SceneManager.LoadSceneAsync("main_menu");
         // No permitir que aparezca la escena mientras no haya cargado completamente
         asyncOperation.allowSceneActivation = false;
         AddStatusText("Cargando Juego");
