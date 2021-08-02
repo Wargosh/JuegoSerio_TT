@@ -26,7 +26,7 @@ public class LoadImage : MonoBehaviour
 
     private void LoadImageFromResources(string image)
     {
-        img.sprite = Resources.Load<Sprite>("images/users/" + image);
+        img.sprite = Resources.Load<Sprite>("Images/User/" + image);
     }
 
     IEnumerator LoadImg(string url)
