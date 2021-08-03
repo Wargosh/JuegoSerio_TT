@@ -5,7 +5,7 @@ public class Player
 	public string _id;              // id de DB
 	public string username;         // nombre de usuario.
 	public string email;            // correo.
-	public string age_class;        // Rango de edad seleccionada por el jugador.
+	public int age_class = 0;		// Rango de edad seleccionada por el jugador.
 	public string image = "";       // ruta de la imagen si llega una.
 	public string timeAgo;          // Ultima conexion del jugador.
 

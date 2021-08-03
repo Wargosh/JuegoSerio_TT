@@ -11,8 +11,29 @@ public class ProfileController : MonoBehaviour
         Instance = this;
     }
 
-    void UpdatePlayerInfo()
+    public void SaveAgeClass(int age_class)
     {
-        
+        PlayerPrefs.SetInt("Player:Age", age_class);
+        NetworkController.Instance._player.age_class = age_class;
+
+        NetworkController.Instance.SaveInfoPlayerToServer();
+    }
+
+    public string GetAgeClassFromIndex(int i)
+    {
+        print(i);
+        switch (i)
+        {
+            case 0:
+                return "Menos de 7 años";
+            case 1:
+                return "Entre 7 a 9 años";
+            case 2:
+                return "Entre 10 a 12 años";
+            case 3:
+                return "Más de 12 años";
+            default:
+                return "Menos de 7 años";
+        }
     }
 }
