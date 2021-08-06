@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ProfileController : MonoBehaviour
@@ -13,10 +11,20 @@ public class ProfileController : MonoBehaviour
 
     public void SaveAgeClass(int age_class)
     {
-        PlayerPrefs.SetInt("Player:Age", age_class);
-        NetworkController.Instance._player.age_class = age_class;
+        PlayerPrefs.SetInt("player_age", age_class);
 
+        NetworkController.Instance._player.age_class = age_class;
         NetworkController.Instance.SaveInfoPlayerToServer();
+    }
+
+    public void SaveNewImage(string newImg)
+    {
+        PlayerPrefs.SetString("player_image", newImg);
+
+        NetworkController.Instance._player.image = newImg;
+        NetworkController.Instance.SaveInfoPlayerToServer();
+
+        UIMainMenu.Instance.ShowInfoPlayer(NetworkController.Instance._player);
     }
 
     public string GetAgeClassFromIndex(int i)

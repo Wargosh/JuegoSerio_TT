@@ -8,6 +8,7 @@ public class UIProfile : MonoBehaviour
     [Header("Opciones de paneles")]
     public GameObject panelProfile;
     public GameObject panelSelectAge;
+    public GameObject panelSelectImage;
 
     [Header("Información del perfil")]
     public TextMeshProUGUI txtUsername;
@@ -19,6 +20,10 @@ public class UIProfile : MonoBehaviour
     public Slider sldAgeClass;
     public TextMeshProUGUI txtSldAge;
 
+    [Header("Panel Seleccionar Imagen")]
+    public GameObject ContentPanelSelectImage;
+    public GameObject imgPrefab;
+
     public static UIProfile Instance { get; set; }
 
     private void Awake()
@@ -26,7 +31,26 @@ public class UIProfile : MonoBehaviour
         Instance = this;
     }
 
-    public void ShowInfoProfile ()
+    private void Start()
+    {
+        LoadSelectableImagesProfile();
+    }
+
+    private void LoadSelectableImagesProfile()
+    {
+        Sprite[] sprites = Resources.LoadAll<Sprite>("Images/User/");
+
+        for (int i = 0; i < sprites.Length; i++)
+        {
+            GameObject obj = Instantiate(imgPrefab);
+            obj.GetComponent<SelectableImage>().img.sprite = sprites[i];
+            obj.transform.SetParent(this.ContentPanelSelectImage.transform);
+            obj.transform.localScale = Vector3.one;
+            obj.gameObject.name = sprites[i].name;
+        }
+    }
+
+    public void ShowInfoProfile()
     {
         Player infoProfile = NetworkController.Instance._player;
 
@@ -36,14 +60,14 @@ public class UIProfile : MonoBehaviour
         imgPlayer.ShowImage(infoProfile.image);
     }
 
-    public void Btn_ShowPanelProfile () 
+    public void Btn_ShowPanelProfile()
     {
         panelProfile.SetActive(true);
 
         ShowInfoProfile();
     }
 
-    public void Btn_HidePanelProfile ()
+    public void Btn_HidePanelProfile()
     {
         panelProfile.SetActive(false);
     }
@@ -58,13 +82,25 @@ public class UIProfile : MonoBehaviour
         panelSelectAge.SetActive(false);
     }
 
-    public void Btn_SaveAgeClass () {
+    public void Btn_ShowPanelSelectImage()
+    {
+        panelSelectImage.SetActive(true);
+    }
+
+    public void Btn_HidePanelSelectImage()
+    {
+        panelSelectImage.SetActive(false);
+    }
+
+    public void Btn_SaveAgeClass()
+    {
         ProfileController.Instance.SaveAgeClass(Convert.ToInt16(sldAgeClass.value));
 
         Btn_HidePanelSelectAge();
     }
 
-    public void OnChangeValueSliderAge () {
+    public void OnChangeValueSliderAge()
+    {
         txtSldAge.text = ProfileController.Instance.GetAgeClassFromIndex(Convert.ToInt16(sldAgeClass.value));
     }
 }
