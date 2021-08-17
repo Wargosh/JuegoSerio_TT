@@ -4,12 +4,19 @@ using UnityEngine.EventSystems;
 
 public class DragController : MonoBehaviour, IPointerUpHandler, IPointerDownHandler, IDragHandler, IBeginDragHandler, IEndDragHandler
 {
-    Image image;
+    [HideInInspector] public Transform parentToReturnTo = null;
+
+    private Image image;
+    private CanvasGroup canvasGroup;
+    private Color currentColor;
+
     public bool pressed;
 
     private void Awake()
     {
+        canvasGroup = GetComponent<CanvasGroup>();
         image = GetComponent<Image>();
+        currentColor = image.color;
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -22,19 +29,30 @@ public class DragController : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         pressed = true;
     }
 
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        image.color = new Color(currentColor.r, currentColor.g, currentColor.b, 0.5f);
+
+        canvasGroup.blocksRaycasts = false;
+        canvasGroup.alpha = 0.75f;
+        parentToReturnTo = this.transform.parent;
+        this.transform.SetParent(this.transform.parent.parent);
+    }
+
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = eventData.position;
     }
-
-    public void OnBeginDrag(PointerEventData eventData)
-    {
-        image.color = new Color(1f, 1f, 1f, 0.5f);
-    }
-
+    
     public void OnEndDrag(PointerEventData eventData)
     {
+        print(parentToReturnTo);
+        image.color = currentColor;
 
-        image.color = new Color(1f, 1f, 1f, 1f);
+        canvasGroup.blocksRaycasts = true;
+        canvasGroup.alpha = 1f;
+        this.transform.SetParent(parentToReturnTo);
+        if (parentToReturnTo.name == "zoneMask")
+            this.transform.localPosition = Vector3.zero;
     }
 }
