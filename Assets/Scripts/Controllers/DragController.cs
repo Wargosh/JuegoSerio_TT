@@ -43,7 +43,7 @@ public class DragController : MonoBehaviour, IPointerUpHandler, IPointerDownHand
     {
         transform.position = eventData.position;
     }
-    
+
     public void OnEndDrag(PointerEventData eventData)
     {
         print(parentToReturnTo);
@@ -52,7 +52,12 @@ public class DragController : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         canvasGroup.blocksRaycasts = true;
         canvasGroup.alpha = 1f;
         this.transform.SetParent(parentToReturnTo);
+
+        // si es arrastrado a la zona donde va la mascarilla
         if (parentToReturnTo.name == "zoneMask")
+        {
             this.transform.localPosition = Vector3.zero;
+            UIMiniGame.Instance.GoalCompleted();
+        }
     }
 }

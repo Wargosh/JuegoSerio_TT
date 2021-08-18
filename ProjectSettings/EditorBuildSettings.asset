@@ -14,4 +14,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/storybook.unity
     guid: 061967920410f344e8514971508f8156
+  - enabled: 1
+    path: Assets/Scenes/use_of_the_mask/level_00.unity
+    guid: fdb747bbbcbc4a7458321081a1931815
   m_configObjects: {}
