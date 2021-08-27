@@ -7,7 +7,6 @@ public class DropZoneController : MonoBehaviour, IDropHandler/*, IPointerEnterHa
     public enum TypeSlot { origin, destiny }
 
     public void OnDrop(PointerEventData eventData) {
-        Debug.Log("OnDrop");
         if (eventData.pointerDrag != null) {
             DragController item = eventData.pointerDrag.GetComponent<DragController>();
             item.parentToReturnTo = this.transform;

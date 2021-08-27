@@ -9,6 +9,7 @@ public class DragController : MonoBehaviour, IPointerUpHandler, IPointerDownHand
     private Image image;
     private CanvasGroup canvasGroup;
     private Color currentColor;
+    private MaskController maskController;
 
     public bool pressed;
 
@@ -16,7 +17,9 @@ public class DragController : MonoBehaviour, IPointerUpHandler, IPointerDownHand
     {
         canvasGroup = GetComponent<CanvasGroup>();
         image = GetComponent<Image>();
+        maskController = GetComponent<MaskController>();
         currentColor = image.color;
+        parentToReturnTo = MinigameController_Mask.Instance.objParent;
     }
 
     public void OnPointerUp(PointerEventData eventData)
@@ -35,8 +38,6 @@ public class DragController : MonoBehaviour, IPointerUpHandler, IPointerDownHand
 
         canvasGroup.blocksRaycasts = false;
         canvasGroup.alpha = 0.75f;
-        parentToReturnTo = this.transform.parent;
-        this.transform.SetParent(this.transform.parent.parent);
     }
 
     public void OnDrag(PointerEventData eventData)
@@ -46,7 +47,6 @@ public class DragController : MonoBehaviour, IPointerUpHandler, IPointerDownHand
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        print(parentToReturnTo);
         image.color = currentColor;
 
         canvasGroup.blocksRaycasts = true;
@@ -57,7 +57,12 @@ public class DragController : MonoBehaviour, IPointerUpHandler, IPointerDownHand
         if (parentToReturnTo.name == "zoneMask")
         {
             this.transform.localPosition = Vector3.zero;
-            UIMiniGame.Instance.GoalCompleted();
+            if (maskController.isNewMask)
+                UIMiniGame.Instance.GoalCompleted();
+            else
+                MinigameController_Mask.Instance.AddFail();
         }
+        else
+            this.transform.SetParent(MinigameController_Mask.Instance.objParent);
     }
 }

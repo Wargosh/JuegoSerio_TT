@@ -9,11 +9,6 @@ public class MaskController : MonoBehaviour
 
     public bool isNewMask = true;
 
-    private void Awake()
-    {
-
-    }
-
     void Start()
     {
         SelectRandomColor();
