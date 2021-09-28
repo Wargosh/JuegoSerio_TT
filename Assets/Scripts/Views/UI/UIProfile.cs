@@ -9,10 +9,12 @@ public class UIProfile : MonoBehaviour
     public GameObject panelProfile;
     public GameObject panelSelectAge;
     public GameObject panelSelectImage;
+    public GameObject panelChangeUsername;
 
     [Header("Información del perfil")]
     public TextMeshProUGUI txtUsername;
     public TextMeshProUGUI txtAge;
+    public TMP_InputField inputUsername;
 
     public LoadImage imgPlayer;
 
@@ -55,7 +57,8 @@ public class UIProfile : MonoBehaviour
         Player infoProfile = NetworkController.Instance._player;
 
         txtUsername.text = infoProfile.username;
-        txtAge.text = ProfileController.Instance.GetAgeClassFromIndex(infoProfile.age_class);
+        txtSldAge.text = txtAge.text = ProfileController.Instance.GetAgeClassFromIndex(infoProfile.age_class);
+        sldAgeClass.value = infoProfile.age_class;
 
         imgPlayer.ShowImage(infoProfile.image);
     }
@@ -90,6 +93,25 @@ public class UIProfile : MonoBehaviour
     public void Btn_HidePanelSelectImage()
     {
         panelSelectImage.SetActive(false);
+    }
+
+    public void Btn_ShowPanelChangeUsername()
+    {
+        panelChangeUsername.SetActive(true);
+
+        inputUsername.text = NetworkController.Instance._player.username;
+    }
+
+    public void Btn_HidePanelChangeUsername()
+    {
+        panelChangeUsername.SetActive(false);
+    }
+
+    public void Btn_SaveNewUsername()
+    {
+        ProfileController.Instance.SaveNewUsername(inputUsername.text);
+
+        Btn_HidePanelChangeUsername();
     }
 
     public void Btn_SaveAgeClass()

@@ -35,10 +35,7 @@ public class UIMiniGame : MonoBehaviour
 
     public void GoalCompleted()
     {
-        print(MinigameController_Mask.Instance.VerifyFails());
-        int fails = MinigameController_Mask.Instance.VerifyFails();
-        print(fails);
-        earnedStars = 3 - fails;
+        earnedStars = 3 - MinigameController_Mask.Instance.VerifyFails();
 
         ShowPanelResumeGame();
     }

@@ -11,7 +11,7 @@ public class MinigameController_Mask : MonoBehaviour
     public RectTransform[] positionsChild;
     public RectTransform[] positionsMask;
 
-    public int fails = 0;
+    private int fails = 0;
     private float _size;
     private List<int> listPositions = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     private List<int> posRestart = new List<int>();
@@ -119,8 +119,8 @@ public class MinigameController_Mask : MonoBehaviour
     {
         // por cada mascarilla "rota" dejada en la cara del personaje
         // también se castiga al jugador con un fallo
-        //for (int i = 1; i < listMasks.Count; i++)
-        //    if (listMasks[i].transform.parent.name == "zoneMask") fails++;
+        for (int i = 1; i < listMasks.Count; i++)
+            if (listMasks[i].transform.parent.name == "zoneMask") fails++;
 
         if (fails > 0 && fails < 3) return 1;
 

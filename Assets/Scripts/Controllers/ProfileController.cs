@@ -9,6 +9,16 @@ public class ProfileController : MonoBehaviour
         Instance = this;
     }
 
+    public void SaveNewUsername(string name)
+    {
+        PlayerPrefs.SetString("player_username", name);
+
+        NetworkController.Instance._player.username = name;
+        NetworkController.Instance.SaveInfoPlayerToServer();
+
+        UIMainMenu.Instance.ShowInfoPlayer(NetworkController.Instance._player);
+    }
+
     public void SaveAgeClass(int age_class)
     {
         PlayerPrefs.SetInt("player_age", age_class);
@@ -29,7 +39,6 @@ public class ProfileController : MonoBehaviour
 
     public string GetAgeClassFromIndex(int i)
     {
-        print(i);
         switch (i)
         {
             case 0:
