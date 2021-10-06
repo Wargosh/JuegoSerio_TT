@@ -23,15 +23,18 @@ public class NetworkController : MonoBehaviour
         form.AddField("_username", _player.username);
         form.AddField("_image", _player.image);
         form.AddField("_age_class", _player.age_class);
+        form.AddField("_stars", _player._stars);
         form.AddField("_experience", _player._experience);
         form.AddField("_level", _player._level);
         form.AddField("_points", _player._points);
+        form.AddField("_totalStars", _player._totalStars);
         form.AddField("_totalGames", _player._totalGames);
         form.AddField("_totalProgress", _player._totalProgress);
         form.AddField("_totalReadings", _player._totalReadings);
         form.AddField("_totalTime", _player._totalTime);
         form.AddField("_totalHits", _player._totalHits);
         form.AddField("_totalFails", _player._totalFails);
+        form.AddField("_level_minigameMask", _player._level_minigameMask);
 
         StartCoroutine(OnSingUP_ToServer(form));
     }

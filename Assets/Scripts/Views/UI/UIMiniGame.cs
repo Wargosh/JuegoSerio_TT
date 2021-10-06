@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 using TMPro;
 using System.Collections;
 
@@ -42,12 +41,12 @@ public class UIMiniGame : MonoBehaviour
 
     public void UpdateNumTextStars()
     {
-        txtNumStars.text = PlayerPrefs.GetInt("player_stars", 0).ToString();
+        txtNumStars.text = PlayerPrefsManager.Instance.getStars().ToString();
     }
 
     public void Btn_GoToMainMenu()
     {
-        SceneManager.LoadScene("main_menu");
+        ScenesController.Instance.LoadSceneName("main_menu");
     }
 
     public void Btn_ShowPanelGoToMainMenu()
@@ -63,6 +62,14 @@ public class UIMiniGame : MonoBehaviour
     public void ShowPanelResumeGame()
     {
         panelResumeGame.SetBool("showPanel", true);
+        SaveEarnedStars();
+    }
+
+    private void SaveEarnedStars()
+    {
+        PlayerPrefsManager.Instance.setStars(PlayerPrefsManager.Instance.getStars() + earnedStars);
+        PlayerPrefsManager.Instance.LoadDataPlayer();
+
         if (earnedStars == 3)
         {
             btnContinue.interactable = true;
@@ -80,7 +87,10 @@ public class UIMiniGame : MonoBehaviour
             btnContinue.interactable = false;
             txtMsgGame.text = msgs.MessagesGoalFailed();
         }
+        
         ShowEarnedStars(earnedStars);
+        UpdateNumTextStars();
+        NetworkController.Instance.SaveInfoPlayerToServer();
     }
 
     private void HidePanelResumeGame()
@@ -98,10 +108,9 @@ public class UIMiniGame : MonoBehaviour
 
     public void Btn_NewLevel_Mask()
     {
-        int level_mask = PlayerPrefs.GetInt("player:lvl_mask", 0);
-
-        level_mask++;
-        SceneManager.LoadScene("level_mask_n");
+        int level_mask = PlayerPrefsManager.Instance.getLevelMinigame_Mask();
+        //level_mask++;
+        ScenesController.Instance.LoadSceneName("level_mask_n");
     }
 
     public void ShowEarnedStars(int num)

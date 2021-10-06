@@ -1,11 +1,11 @@
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using TMPro;
 
 public class UIMainMenu : MonoBehaviour
 {
     public TextMeshProUGUI txtUsername;
+    public TextMeshProUGUI txtNumStars;
     public Image imgPlayer;
 
     public GameObject panelSelectMinigames;
@@ -25,6 +25,7 @@ public class UIMainMenu : MonoBehaviour
     public void ShowInfoPlayer(Player infoPlayer)
     {
         txtUsername.text = infoPlayer.username;
+        txtNumStars.text = infoPlayer._stars.ToString();
         imgPlayer.gameObject.GetComponent<LoadImage>().ShowImage(infoPlayer.image);
     }
 
@@ -40,17 +41,19 @@ public class UIMainMenu : MonoBehaviour
 
     public void Btn_GoToStoryBook()
     {
-        SceneManager.LoadScene("storybook");
+        ScenesController.Instance.LoadSceneName("storybook");
     }
 
     public void Btn_GoToLevel_UseOfMask()
     {
-        SceneManager.LoadScene("level_mask_n");
+        ScenesController.Instance.LoadSceneName("level_mask_n");
     }
+
     public void Btn_GoToLevel_UseOfAlcohol()
     {
         //SceneManager.LoadScene("storybook");
     }
+
     public void Btn_GoToLevel_SafeDistance()
     {
         //SceneManager.LoadScene("storybook");
